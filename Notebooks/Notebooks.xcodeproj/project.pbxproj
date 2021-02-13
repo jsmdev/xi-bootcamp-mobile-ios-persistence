@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9063CC2125D84C9800D8E7C0 /* NoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9063CC2025D84C9800D8E7C0 /* NoteDetailViewController.swift */; };
 		DB10927C25BF904200B47E86 /* ShortCuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB10927B25BF904200B47E86 /* ShortCuts.swift */; };
 		DB1341AD25C0C771001293F4 /* NotebookTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1341AC25C0C771001293F4 /* NotebookTableViewController.swift */; };
 		DB1341B325C0CD55001293F4 /* NotebookTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1341B225C0CD55001293F4 /* NotebookTableViewControllerTests.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9063CC2025D84C9800D8E7C0 /* NoteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailViewController.swift; sourceTree = "<group>"; };
 		DB10927B25BF904200B47E86 /* ShortCuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortCuts.swift; sourceTree = "<group>"; };
 		DB1341AC25C0C771001293F4 /* NotebookTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookTableViewController.swift; sourceTree = "<group>"; };
 		DB1341B225C0CD55001293F4 /* NotebookTableViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotebookTableViewControllerTests.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				DB1341AC25C0C771001293F4 /* NotebookTableViewController.swift */,
 				DB40828525C8BFE0006FBC30 /* PhotographMO+CoreDataClass.swift */,
 				DBEF035725C3754E007C45C2 /* NoteTableViewController.swift */,
+				9063CC2025D84C9800D8E7C0 /* NoteDetailViewController.swift */,
 				DB40827125C8B2AD006FBC30 /* HelperDateFormatter.swift */,
 				DB53670E25C9FF1F004DD7C5 /* DownSampler.swift */,
 			);
@@ -236,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB149F3725BF62E1000DF18D /* DataController.swift in Sources */,
+				9063CC2125D84C9800D8E7C0 /* NoteDetailViewController.swift in Sources */,
 				DB149F2325BF5E37000DF18D /* ViewController.swift in Sources */,
 				DB40828725C8BFE0006FBC30 /* PhotographMO+CoreDataClass.swift in Sources */,
 				DB53670F25C9FF1F004DD7C5 /* DownSampler.swift in Sources */,
