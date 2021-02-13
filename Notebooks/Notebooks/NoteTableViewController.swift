@@ -208,10 +208,13 @@ class NoteTableViewController: UITableViewController, UIImagePickerControllerDel
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? NoteDetailViewController,
-           let noteMO = sender as? NoteMO {
-            destination.note = noteMO
-        }
+        guard let destination = segue.destination as? NoteDetailViewController,
+              let noteMO = sender as? NoteMO,
+              let segueId = segue.identifier,
+              segueId == "noteDetailSegueIdentifier" else { return }
+        
+        destination.note = noteMO
+        destination.dataController = dataController
     }
 }
 
