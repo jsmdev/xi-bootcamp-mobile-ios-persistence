@@ -75,6 +75,7 @@ class NoteTableViewController: UITableViewController, UIImagePickerControllerDel
         //crear un boton que abra el image picker y luego cuando se elija una imagen, se pueda agregar una nota con esa imagen.
         
         setupNavigationItem()
+        setupSearchController()
     }
     
     func setupNavigationItem() {
@@ -86,6 +87,52 @@ class NoteTableViewController: UITableViewController, UIImagePickerControllerDel
                                                    action: #selector(createAndPresentImagePicker))
         
         navigationItem.rightBarButtonItem = addNoteBarButtonItem
+    }
+    
+    private func setupSearchController() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search notes..."
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    private func searchNote(by title: String) {
+        // Step 1.
+        guard let dataController = dataController,
+            let notebook = notebook else {
+            return
+        }
+        
+        // Step 2.
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Note")
+        
+        // Step 3.
+        let noteCreatedAtSortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        fetchRequest.sortDescriptors = [noteCreatedAtSortDescriptor]
+        
+        // Step 4.
+        let predicateNotebook = NSPredicate(format: "notebook == %@", notebook)
+        let predicateTitle = NSPredicate(format: "title CONTAINS %@", title)
+        let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [predicateNotebook, predicateTitle])
+        fetchRequest.predicate = andPredicate
+        
+        // Step 5.
+        let managedObjectContext = dataController.viewContext
+        fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                            managedObjectContext: managedObjectContext,
+                                                            sectionNameKeyPath: nil,
+                                                            cacheName: nil)
+        fetchResultsController?.delegate = self
+        
+        // Step 6.
+        do {
+            try fetchResultsController?.performFetch()
+        } catch {
+            fatalError("--- CORE DATA: couldn't find notes \(error.localizedDescription)")
+        }
     }
     
     @objc
@@ -194,5 +241,22 @@ extension NoteTableViewController: NSFetchedResultsControllerDelegate {
     // did change content.
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+    }
+}
+
+// MARK:- NSFetchResultsControllerDelegate.
+extension NoteTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let text = searchController.searchBar.text?.lowercased(), text.count >= 1 {
+            searchNote(by: text)
+            tableView.reloadData()
+        }
+    }
+}
+
+extension NoteTableViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        initializeFetchResultsController()
+        tableView.reloadData()
     }
 }
