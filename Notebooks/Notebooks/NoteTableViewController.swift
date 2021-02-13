@@ -199,6 +199,20 @@ class NoteTableViewController: UITableViewController, UIImagePickerControllerDel
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let note = fetchResultsController?.object(at: indexPath) as? NoteMO {
+            performSegue(withIdentifier: "noteDetailSegueIdentifier",
+                         sender: note)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? NoteDetailViewController,
+           let noteMO = sender as? NoteMO {
+            destination.note = noteMO
+        }
+    }
 }
 
 // MARK:- NSFetchResultsControllerDelegate.

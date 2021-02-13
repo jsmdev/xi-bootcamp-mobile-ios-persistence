@@ -8,13 +8,19 @@
 import UIKit
 
 class NoteDetailViewController: ViewController {
-
+    
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var saveButton: UIButton!
+    
+    var note: NoteMO?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        titleTextField.text = note?.title
+        descriptionTextView.text = note?.description
     }
-    
 
     /*
     // MARK: - Navigation
