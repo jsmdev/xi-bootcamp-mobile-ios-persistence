@@ -13,7 +13,6 @@ class NoteDetailViewController: ViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var saveButton: UIButton!
     
     var dataController: DataController?
     var fetchResultsController: NSFetchedResultsController<NSFetchRequestResult>?

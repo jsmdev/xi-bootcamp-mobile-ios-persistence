@@ -130,7 +130,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lLI-e1-c5l">
-                                <rect key="frame" x="0.0" y="310" width="414" height="502"/>
+                                <rect key="frame" x="0.0" y="310" width="414" height="552"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="En5-MI-uhI">
                                     <size key="itemSize" width="128" height="128"/>
@@ -164,15 +164,10 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xit-jG-sqh">
-                                <rect key="frame" x="184" y="832" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FSZ-eY-xog"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="FSZ-eY-xog" firstAttribute="bottom" secondItem="xit-jG-sqh" secondAttribute="bottom" id="Pnj-nd-cqp"/>
                             <constraint firstItem="lhy-Ph-7Vr" firstAttribute="width" secondItem="pK7-8k-NKP" secondAttribute="width" id="R6L-HR-Ne4"/>
                             <constraint firstItem="pK7-8k-NKP" firstAttribute="leading" secondItem="FSZ-eY-xog" secondAttribute="leading" constant="16" id="UPX-QH-XKe"/>
                             <constraint firstItem="FSZ-eY-xog" firstAttribute="trailing" secondItem="pK7-8k-NKP" secondAttribute="trailing" constant="16" id="Xqg-bP-TcQ"/>
@@ -181,16 +176,14 @@
                             <constraint firstItem="pK7-8k-NKP" firstAttribute="top" secondItem="FSZ-eY-xog" secondAttribute="top" constant="20" id="i9c-Eb-f43"/>
                             <constraint firstItem="FSZ-eY-xog" firstAttribute="trailing" secondItem="lLI-e1-c5l" secondAttribute="trailing" id="iwg-0n-0rj"/>
                             <constraint firstItem="lLI-e1-c5l" firstAttribute="leading" secondItem="FSZ-eY-xog" secondAttribute="leading" id="lOg-UV-InJ"/>
+                            <constraint firstItem="FSZ-eY-xog" firstAttribute="bottom" secondItem="lLI-e1-c5l" secondAttribute="bottom" id="o4B-kL-ie2"/>
                             <constraint firstItem="lLI-e1-c5l" firstAttribute="top" secondItem="lhy-Ph-7Vr" secondAttribute="bottom" constant="20" id="tDK-XR-2uX"/>
-                            <constraint firstItem="xit-jG-sqh" firstAttribute="centerX" secondItem="FSZ-eY-xog" secondAttribute="centerX" id="w4l-dZ-1gW"/>
-                            <constraint firstItem="xit-jG-sqh" firstAttribute="top" secondItem="lLI-e1-c5l" secondAttribute="bottom" constant="20" id="xbK-f3-eNX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="P1B-Jb-sBa"/>
                     <connections>
                         <outlet property="collectionView" destination="lLI-e1-c5l" id="9kz-GU-0Lb"/>
                         <outlet property="descriptionTextView" destination="lhy-Ph-7Vr" id="XJf-RI-reF"/>
-                        <outlet property="saveButton" destination="xit-jG-sqh" id="VKQ-l2-JcP"/>
                         <outlet property="titleTextField" destination="pK7-8k-NKP" id="Qp1-Oq-PO2"/>
                     </connections>
                 </viewController>
