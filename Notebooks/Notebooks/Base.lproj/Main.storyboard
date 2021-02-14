@@ -159,7 +159,7 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
-                                            <outlet property="fotoImageView" destination="IRI-Sl-Sao" id="aLI-2b-6wN"/>
+                                            <outlet property="photographImageView" destination="IRI-Sl-Sao" id="Tv6-ub-wAO"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

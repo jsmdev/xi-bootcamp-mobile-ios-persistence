@@ -202,12 +202,27 @@ extension NoteDetailViewController: UICollectionViewDelegateFlowLayout {
 // MARK:- UICollectionViewDataSource.
 extension NoteDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if let fetchResultsController = fetchResultsController,
+           let sections = fetchResultsController.sections {
+            return sections[section].numberOfObjects
+        } else {
+            return 0
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotographCollectionViewCell.identifier,
                                                       for: indexPath) as? PhotographCollectionViewCell
+        
+        guard let photograph = fetchResultsController?.object(at: indexPath) as? PhotographMO else {
+            fatalError("Attempt to configure cell without a managed object")
+        }
+        
+        if let imageData = photograph.imageData,
+           let image = UIImage(data: imageData) {
+            cell?.photographImageView?.image = image
+        }
+        
         return cell ?? UICollectionViewCell()
     }
 }
@@ -217,7 +232,6 @@ extension NoteDetailViewController: UIImagePickerControllerDelegate & UINavigati
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true) { [unowned self] in
             if let urlImage = info[.imageURL] as? URL {
-                // data controller para poder crear nuestra nota y photograph asociada.
                 if let note = self.note {
                     self.dataController?.addImage(with: urlImage, to: note)
                 }
