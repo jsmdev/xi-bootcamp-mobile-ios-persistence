@@ -86,6 +86,7 @@ class NoteDetailViewController: ViewController {
     private func setupUI() {
         setupCollectionView()
         setupAddImageButton()
+        setupTextView()
     }
     
     private func loadData() {
@@ -103,7 +104,14 @@ class NoteDetailViewController: ViewController {
         collectionView?.delegate = self
         collectionView?.dataSource = self
     }
-    
+
+    private func setupTextView() {
+        descriptionTextView.layer.cornerRadius = 6
+        descriptionTextView.layer.borderColor = UIColor.systemGroupedBackground.cgColor
+        descriptionTextView.backgroundColor = UIColor.systemGroupedBackground
+        descriptionTextView.layer.borderWidth = 1
+    }
+
     private func setupAddImageButton() {
         let addImageBarButtonItem = UIBarButtonItem(title: "Add Image",
                                                   style: .done,
