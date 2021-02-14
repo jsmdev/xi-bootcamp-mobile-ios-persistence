@@ -186,8 +186,8 @@ class NoteTableViewController: UITableViewController, UIImagePickerControllerDel
         
         cell.textLabel?.text = note.title
         
-        if let noteCreatedAt = note.createdAt {
-            cell.detailTextLabel?.text = HelperDateFormatter.textFrom(date: noteCreatedAt)
+        if let noteCreatedAt = note.createdAt, let photosCount = note.photographs?.count {
+            cell.detailTextLabel?.text = "\(HelperDateFormatter.textFrom(date: noteCreatedAt)) - \(photosCount) photo(s)"
         }
         
         if let photograph = note.photographs?.allObjects.first as? PhotographMO, // relación a Photograph
