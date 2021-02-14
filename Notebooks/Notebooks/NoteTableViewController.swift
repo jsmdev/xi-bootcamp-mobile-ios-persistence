@@ -190,7 +190,7 @@ class NoteTableViewController: UITableViewController, UIImagePickerControllerDel
             cell.detailTextLabel?.text = HelperDateFormatter.textFrom(date: noteCreatedAt)
         }
         
-        if let photograph = note.photograph, // relación a Photograph
+        if let photograph = note.photographs?.allObjects.first as? PhotographMO, // relación a Photograph
            let imageData = photograph.imageData, // el atributo image data (donde posee la info de la imagen)
            let image = UIImage(data: imageData) { // aca creamos el uiimage necesario para nuestra celda.
             cell.imageView?.image = image // aca seteamos la uiimage del uiimageview en nuestra celda.

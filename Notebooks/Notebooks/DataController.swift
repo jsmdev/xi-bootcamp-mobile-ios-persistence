@@ -274,7 +274,9 @@ extension DataController {
                                          title: "titulo de nota",
                                          createdAt: Date())
             
-            note?.photograph = photograhMO
+            if let photo = photograhMO {
+                note?.addToPhotographs(photo)
+            }
             
             do {
                 try managedObjectContext.save()
