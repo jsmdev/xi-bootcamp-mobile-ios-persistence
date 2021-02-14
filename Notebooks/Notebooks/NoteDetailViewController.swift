@@ -17,6 +17,7 @@ class NoteDetailViewController: ViewController {
     
     var dataController: DataController?
     var fetchResultsController: NSFetchedResultsController<NSFetchRequestResult>?
+    var blockOperations = [BlockOperation]()
     var note: NoteMO?
     
     public convenience init(dataController: DataController) {
@@ -30,6 +31,11 @@ class NoteDetailViewController: ViewController {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    deinit {
+        for operation in blockOperations { operation.cancel() }
+        blockOperations.removeAll()
     }
     
     override func viewDidLoad() {
@@ -102,5 +108,64 @@ class NoteDetailViewController: ViewController {
 // MARK:- NSFetchResultsControllerDelegate.
 extension NoteDetailViewController: NSFetchedResultsControllerDelegate {
     
+    // Will change content.
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) { }
     
+    // Did change a section.
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange sectionInfo: NSFetchedResultsSectionInfo,
+                    atSectionIndex sectionIndex: Int,
+                    for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            blockOperations.append(BlockOperation(block: { [weak self] in
+                self?.collectionView.insertSections(IndexSet(integer: sectionIndex))
+            }))
+        case .delete:
+            blockOperations.append(BlockOperation(block: { [weak self] in
+                self?.collectionView.deleteSections(IndexSet(integer: sectionIndex))
+            }))
+        case .move, .update:
+            break
+        @unknown default: fatalError()
+        }
+    }
+    
+    // Did change an object.
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
+        guard let newIndexPath = newIndexPath, let indexPath = indexPath else {
+            return
+        }
+        switch type {
+            case .insert:
+                blockOperations.append(BlockOperation(block: { [weak self] in
+                    self?.collectionView.insertItems(at: [newIndexPath])
+                }))
+            case .delete:
+                blockOperations.append(BlockOperation(block: { [weak self] in
+                    self?.collectionView.deleteItems(at: [indexPath])
+                }))
+            case .update:
+                blockOperations.append(BlockOperation(block: { [weak self] in
+                    self?.collectionView.reloadItems(at: [indexPath])
+                }))
+            case .move:
+                blockOperations.append(BlockOperation(block: { [weak self] in
+                    self?.collectionView.moveItem(at: indexPath, to: newIndexPath)
+                }))
+            @unknown default:
+                break
+        }
+    }
+    
+    // Did change content.
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        collectionView.performBatchUpdates({ () -> Void in
+            for operation: BlockOperation in self.blockOperations { operation.start() }
+        }, completion: { (finished) -> Void in self.blockOperations.removeAll() })
+    }
 }
