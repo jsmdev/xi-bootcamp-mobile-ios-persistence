@@ -180,6 +180,7 @@ extension DataController {
             
             if let dataNotebookImage = notebookImage?.pngData() {
                 let photograph = PhotographMO.createPhoto(imageData: dataNotebookImage,
+                                                          createdAt: Date(),
                                                           managedObjectContext: managedObjectContext)
             
                 notebook.photograph = photograph
@@ -222,6 +223,7 @@ extension DataController {
         
         if let dataNotebookImage = notebookImage?.pngData() {
             let photograph = PhotographMO.createPhoto(imageData: dataNotebookImage,
+                                                      createdAt: Date(),
                                                       managedObjectContext: managedObjectContext)
         
             notebook.photograph = photograph
@@ -264,6 +266,7 @@ extension DataController {
             let copyNotebook = managedObjectContext.object(with: notebookID) as! NotebookMO
             
             let photograhMO = PhotographMO.createPhoto(imageData: imageThumbnailData,
+                                                       createdAt: Date(),
                                                        managedObjectContext: managedObjectContext)
             
             let note = NoteMO.createNote(managedObjectContext: managedObjectContext,

@@ -13,11 +13,13 @@ import CoreData
 public class PhotographMO: NSManagedObject {
 
     static func createPhoto(imageData: Data,
+                            createdAt: Date,
                             managedObjectContext: NSManagedObjectContext) -> PhotographMO? {
         let photograph = NSEntityDescription.insertNewObject(forEntityName: "Photograph",
                                                              into: managedObjectContext) as? PhotographMO
         
         photograph?.imageData = imageData
+        photograph?.createdAt = createdAt
         
         return photograph
     }
