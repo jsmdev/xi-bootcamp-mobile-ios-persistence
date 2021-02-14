@@ -19,6 +19,7 @@ class NoteDetailViewController: ViewController {
     var fetchResultsController: NSFetchedResultsController<NSFetchRequestResult>?
     var blockOperations = [BlockOperation]()
     var note: NoteMO?
+    let cellSize: CGFloat = (UIScreen.main.bounds.width - 50) / 3
     
     public convenience init(dataController: DataController) {
         self.init()
@@ -49,7 +50,21 @@ class NoteDetailViewController: ViewController {
         super.viewWillDisappear(animated)
         saveData()
     }
-    
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+
+        layout.itemSize = CGSize(width: cellSize, height: cellSize)
+        layout.minimumLineSpacing = 8
+        layout.prepare()  // <-- call prepare before invalidateLayout
+        layout.invalidateLayout()
+        collectionView.layoutIfNeeded()
+    }
+
     func initializeFetchResultsController() {
         // 1. Unwrapping DataController and Note Managed Object
         guard let dataController = dataController,
@@ -202,9 +217,7 @@ extension NoteDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = UIScreen.main.bounds.width / 3 - 32
-        let cellHeight = cellWidth
-        return CGSize(width: cellWidth, height: cellHeight)
+        return CGSize(width: cellSize, height: cellSize)
     }
 }
 

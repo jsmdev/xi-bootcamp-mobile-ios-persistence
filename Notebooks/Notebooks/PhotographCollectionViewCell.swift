@@ -16,6 +16,8 @@ class PhotographCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         photographImageView?.layer.borderColor = UIColor.lightGray.cgColor
         photographImageView?.layer.borderWidth = 1
+        photographImageView?.layer.masksToBounds = true
+        photographImageView?.layer.cornerRadius = 6
     }
 
     override func prepareForReuse() {
