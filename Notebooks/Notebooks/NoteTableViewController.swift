@@ -115,7 +115,7 @@ class NoteTableViewController: UITableViewController, UIImagePickerControllerDel
         
         // Step 4.
         let predicateNotebook = NSPredicate(format: "notebook == %@", notebook)
-        let predicateTitle = NSPredicate(format: "title CONTAINS %@", title)
+        let predicateTitle = NSPredicate(format: "ANY title CONTAINS[c] %@", title)
         let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [predicateNotebook, predicateTitle])
         fetchRequest.predicate = andPredicate
         
