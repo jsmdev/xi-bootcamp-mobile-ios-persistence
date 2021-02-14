@@ -185,8 +185,8 @@ extension NoteDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = UIScreen.main.bounds.width / 3 - (8 + 8 + 16 + 16)
-        let cellHeight = cellWidth + 60
+        let cellWidth = UIScreen.main.bounds.width / 3 - 32
+        let cellHeight = cellWidth
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }

@@ -14,11 +14,8 @@ class PhotographCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        if let width = fotoImageView?.bounds.width {
-            fotoImageView?.layer.cornerRadius =  width / 2
-        }
-        fotoImageView?.layer.borderWidth = 1
         fotoImageView?.layer.borderColor = UIColor.lightGray.cgColor
+        fotoImageView?.layer.borderWidth = 1
     }
 
     override func prepareForReuse() {
