@@ -90,11 +90,12 @@ class NoteDetailViewController: ViewController {
     
     private func loadData() {
         titleTextField.text = note?.title
-        descriptionTextView.text = note?.description
+        descriptionTextView.text = note?.comment
     }
     
     private func saveData() {
         note?.title = titleTextField.text
+        note?.comment = descriptionTextView.text
         dataController?.save()
     }
     
