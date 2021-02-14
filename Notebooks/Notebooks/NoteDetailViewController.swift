@@ -112,6 +112,14 @@ class NoteDetailViewController: ViewController {
     }
     
     @objc func addImagePressed() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = false
+        if  UIImagePickerController.isSourceTypeAvailable(.photoLibrary),
+            let availabletypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary) {
+            picker.mediaTypes = availabletypes
+        }
+        present(picker, animated: true, completion: nil)
     }
 }
 
@@ -201,5 +209,19 @@ extension NoteDetailViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotographCollectionViewCell.identifier,
                                                       for: indexPath) as? PhotographCollectionViewCell
         return cell ?? UICollectionViewCell()
+    }
+}
+
+extension NoteDetailViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true) { [unowned self] in
+            if let urlImage = info[.imageURL] as? URL {
+                // data controller para poder crear nuestra nota y photograph asociada.
+                if let note = self.note {
+                    self.dataController?.addImage(with: urlImage, to: note)
+                }
+            }
+        }
     }
 }
