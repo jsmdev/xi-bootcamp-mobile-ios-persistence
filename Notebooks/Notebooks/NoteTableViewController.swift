@@ -261,7 +261,7 @@ extension NoteTableViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-// MARK:- NSFetchResultsControllerDelegate.
+// MARK:- UISearchResultsUpdating.
 extension NoteTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text?.lowercased(), text.count >= 1 {
@@ -271,6 +271,7 @@ extension NoteTableViewController: UISearchResultsUpdating {
     }
 }
 
+// MARK:- UISearchBarDelegate.
 extension NoteTableViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         initializeFetchResultsController()
