@@ -84,11 +84,8 @@ class NoteDetailViewController: ViewController {
     }
     
     private func setupUI() {
-        let addImageBarButtonItem = UIBarButtonItem(title: "Add Image",
-                                                  style: .done,
-                                                  target: self,
-                                                  action: #selector(addImagePressed))
-        navigationItem.rightBarButtonItem = addImageBarButtonItem
+        setupCollectionView()
+        setupAddImageButton()
     }
     
     private func loadData() {
@@ -99,6 +96,19 @@ class NoteDetailViewController: ViewController {
     private func saveData() {
         note?.title = titleTextField.text
         dataController?.save()
+    }
+    
+    private func setupCollectionView() {
+        collectionView?.delegate = self
+        collectionView?.dataSource = self
+    }
+    
+    private func setupAddImageButton() {
+        let addImageBarButtonItem = UIBarButtonItem(title: "Add Image",
+                                                  style: .done,
+                                                  target: self,
+                                                  action: #selector(addImagePressed))
+        navigationItem.rightBarButtonItem = addImageBarButtonItem
     }
     
     @objc func addImagePressed() {
@@ -167,5 +177,29 @@ extension NoteDetailViewController: NSFetchedResultsControllerDelegate {
         collectionView.performBatchUpdates({ () -> Void in
             for operation: BlockOperation in self.blockOperations { operation.start() }
         }, completion: { (finished) -> Void in self.blockOperations.removeAll() })
+    }
+}
+
+// MARK:- UICollectionViewDelegateFlowLayout.
+extension NoteDetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = UIScreen.main.bounds.width / 3 - (8 + 8 + 16 + 16)
+        let cellHeight = cellWidth + 60
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+}
+
+// MARK:- UICollectionViewDataSource.
+extension NoteDetailViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotographCollectionViewCell.identifier,
+                                                      for: indexPath) as? PhotographCollectionViewCell
+        return cell ?? UICollectionViewCell()
     }
 }
