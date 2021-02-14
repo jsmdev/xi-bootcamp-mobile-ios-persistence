@@ -271,7 +271,7 @@ extension DataController {
             
             let note = NoteMO.createNote(managedObjectContext: managedObjectContext,
                                          notebook: copyNotebook,
-                                         title: "titulo de nota",
+                                         title: "Note title",
                                          createdAt: Date())
             
             if let photo = photograhMO {
